@@ -1,7 +1,10 @@
 // Seleciona os elementos do formulário
+const form = document.querySelector("form")
 const amount = document.getElementById("amount")
+const expense = document.getElementById("expense")
+const category = document.getElementById("category")
 
-// Caputa o evento de input para formatar o valor
+// Captura o evento de input para formatar o valor
 amount.oninput = () => {
     let value = amount.value.replace(/\D/g, "")
     value = Number(value)/100
@@ -15,4 +18,21 @@ function formatCurrencyBRL(value) {
         currency: "BRL",
     })
     return value
+}
+
+// Captura o evento de submit do form para obter os valores (usando objeto)
+form.onsubmit = (event) => {
+
+    // Previne o comportamento de reload
+    event.preventDefault()
+
+    const newExpense = {
+        id: new Date().getTime(),
+        expense: expense.value,
+        category_id: category.value,
+        category_name: category.options[category.selectedIndex].text,
+        amount: amount.value,
+        created_at: new Date(),
+    }
+
 }
